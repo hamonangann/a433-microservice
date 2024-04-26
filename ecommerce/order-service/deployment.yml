@@ -1,0 +1,26 @@
+apiVersion: apps/v1 # Menggunakan higher level api
+kind: Deployment # Jenisnya adalah deployment
+metadata: # Data dari data ini
+  name: order # Nama untuk backend adalah order
+  labels: # Tanda yang diberikan
+    app: order # Didefinisikan app order
+spec: # Spesifikasi deployment
+  replicas: 1 # Single pod at a time
+  selector: # Pod yang termasuk
+    matchLabels: # Harus memiliki label yang sama yaitu
+      app: order # Nama app haruslah order
+  template: # Template yang digunakan
+    metadata: # Data dari template ini
+      labels: # Label yang diperikan untuk template
+        app: order # Untuk app order
+    spec: # Spesifikasi pod
+      containers: # Container dalam pod
+      - name: server # Single container bernama server
+        image: ghcr.io/hamonangann/order-service:latest # Image dari Github Package
+        ports: # Pengaturan port
+          - containerPort: 3000 # Kontainer jalan di port 3000
+        env: # Env variablenya
+          - name: PORT # Port Aplikasi
+            value: "3000" # Order jalan di port 3000
+          - name: AMQP_URL # URL untuk terhubung ke RabbitMQ
+            value: amqp://user:axItXazH8FDicYSG@rabbitmq:5672 # Isi URL mengandung username, password, dan service name

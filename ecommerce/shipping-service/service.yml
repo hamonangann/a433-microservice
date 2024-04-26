@@ -1,0 +1,14 @@
+apiVersion: v1 # Menggunakan api v1
+kind: Service # Jenisnya adalah service
+metadata: # Data dari data ini
+  name: shipping # Nama untuk backend adalah app-tier
+  labels: # Tanda yang diberikan
+    app: shipping # Didefinisikan app shipping
+spec: # Spesifikasi service
+  type: NodePort # Jenis service yang exposing nodeport
+  ports: # Daftar port
+  - port: 3001 # Port yang ditembak requester
+    targetPort: 3001 # Request menuju port aplikasi 3000
+    nodePort: 30002 # Port letak node
+  selector: # Prasyarat atau filter
+    app: shipping # App harus sama dengan shipping

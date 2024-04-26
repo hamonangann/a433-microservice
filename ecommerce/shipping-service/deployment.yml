@@ -1,0 +1,26 @@
+apiVersion: apps/v1 # Menggunakan higher level api
+kind: Deployment # Jenisnya adalah deployment
+metadata: # Data dari data ini
+  name: shipping # Nama untuk backend adalah shipping
+  labels: # Tanda yang diberikan
+    app: shipping # Didefinisikan app shipping
+spec: # Spesifikasi deployment
+  replicas: 1 # Single pod at a time
+  selector: # Pod yang termasuk
+    matchLabels: # Harus memiliki label yang sama yaitu
+      app: shipping # Nama app haruslah shipping
+  template: # Template yang digunakan
+    metadata: # Data dari template ini
+      labels: # Label yang diperikan untuk template
+        app: shipping # Untuk app shipping
+    spec: # Spesifikasi pod
+      containers: # Container dalam pod
+      - name: server # Single container bernama server
+        image: ghcr.io/hamonangann/shipping-service:latest # Image dari Github Package
+        ports: # Pengaturan port
+          - containerPort: 3001 # Kontainer jalan di port 3000
+        env: # Env variablenya
+          - name: PORT # Port Aplikasi
+            value: "3001" # Shipping jalan di port 3001
+          - name: AMQP_URL # URL untuk terhubung ke RabbitMQ
+            value: amqp://user:axItXazH8FDicYSG@rabbitmq:5672 # Isi URL mengandung username, password, dan service name

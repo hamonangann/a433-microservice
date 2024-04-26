@@ -1,0 +1,14 @@
+apiVersion: v1 # Menggunakan api v1
+kind: Service # Jenisnya adalah service
+metadata: # Data dari data ini
+  name: order # Nama untuk backend adalah app-tier
+  labels: # Tanda yang diberikan
+    app: order # Didefinisikan app order
+spec: # Spesifikasi service
+  type: NodePort # Jenis service yang exposing nodeport
+  ports: # Daftar port
+  - port: 3000 # Port yang ditembak requester
+    targetPort: 3000 # Request menuju port aplikasi 3000
+    nodePort: 30001 # Port letak node
+  selector: # Prasyarat atau filter
+    app: order # App harus sama dengan order

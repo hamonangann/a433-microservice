@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ui-tier
+  labels:
+    app: microservices
+    tier: ui
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      tier: ui
+  template:
+    metadata:
+      labels:
+        app: microservices
+        tier: ui
+    spec:
+      containers:
+      - name: frontend
+        image: ghcr.io/hamonangann/karsajobs-ui:latest
+        env:
+          - name: VUE_APP_BACKEND
+            value: "http://localhost:8080"

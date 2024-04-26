@@ -1,0 +1,14 @@
+apiVersion: networking.istio.io/v1alpha3 # menggunakan istio v1alpha3 api
+kind: Gateway # jenisnya dalah ingress gateway
+metadata: # data tentang konfigurasi ini
+  name: ecommerce-gateway # nama gateway yang dipilih
+spec: # spesifikasi gateway
+  selector: # selector untuk gateway ini
+    istio: ingressgateway # controller istio
+  servers: # server yang terhubung
+  - port: # server pertama yaitu http server
+      number: 80 # port default http
+      name: http # nama default untuk http
+      protocol: HTTP # protokol untuk http server
+    hosts: # hosts dari server 
+    - "*" # mengizinkan ip apapun

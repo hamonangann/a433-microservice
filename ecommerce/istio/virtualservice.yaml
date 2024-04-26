@@ -1,0 +1,18 @@
+apiVersion: networking.istio.io/v1alpha3 # menggunakan istio v1alpha3 api
+kind: VirtualService # jenisnya dalah istio virtual serivce
+metadata: # data tentang konfigurasi ini
+  name: ecommerce # nama service virtual yang dipilih
+spec: # spesifikasi service
+  hosts: # host dari service
+  - "*" # mengizinkan semua alamat ip
+  gateways: # ingress gateway yang dipakai
+  - ecommerce-gateway # menggunakan gateway dalam proyek akhir yaitu ecommerce
+  http: # selector http
+  - match: # http harus match
+    - uri: # url yang harus match untuk http request
+        exact: /order # endpoint posting orderan
+    route: # rute dari service yang dituju
+    - destination: # tujuan dari selector
+        host: order # request dikirim ke order service
+        port: # port tempat order service
+          number: 3000 # dikirim ke port 3000
